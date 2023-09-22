@@ -1,0 +1,11 @@
+<decorators defaultdir="/decorators">
+    <exclude>
+        <pattern>/api*</pattern>
+    </exclude>
+    <decorator name="admin" page="admin.jsp">
+        <pattern>/admin*</pattern>
+    </decorator>
+    <decorator name="web" page="web.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>
