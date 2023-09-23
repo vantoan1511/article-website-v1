@@ -19,4 +19,6 @@ public interface ICommentDao {
 
     void update(Comment comment);
 
+    void delete(Long id);
+
 }

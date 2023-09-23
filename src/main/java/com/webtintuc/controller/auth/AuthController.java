@@ -65,7 +65,7 @@ public class AuthController extends HttpServlet {
                 SessionUtil.put(req, "session", session);
                 if (session.getUser().getRoleId().equals(SystemConstant.ADMIN_ROLE)) {
                     location = "/admin/home";
-                } else if (next != null) {
+                } else if (next != null && !next.isEmpty()) {
                     location = next;
                 } else {
                     location = "/home";
@@ -81,7 +81,6 @@ public class AuthController extends HttpServlet {
                 location = "/login?type=success&msg=register_success";
             }
         }
-
         resp.sendRedirect(location);
     }
 }

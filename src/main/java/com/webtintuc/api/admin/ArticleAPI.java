@@ -27,12 +27,15 @@ public class ArticleAPI extends HttpServlet {
     @Inject
     private IArticleService articleService;
 
+    private ObjectMapper mapper;
+    private String payload;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json");
-        ObjectMapper mapper = new ObjectMapper();
-        String payload = req.getReader().lines().collect(Collectors.joining());
+        mapper = new ObjectMapper();
+        payload = req.getReader().lines().collect(Collectors.joining());
         Article article = mapper.readValue(payload, Article.class);
         User author = authService.getLoggedInUser(req.getSession().getId());
         if (author == null || !author.getRoleId().equals(SystemConstant.ADMIN_ROLE)) {
@@ -51,8 +54,8 @@ public class ArticleAPI extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json");
-        ObjectMapper mapper = new ObjectMapper();
-        String payload = req.getReader().lines().collect(Collectors.joining());
+        mapper = new ObjectMapper();
+        payload = req.getReader().lines().collect(Collectors.joining());
         Article article = mapper.readValue(payload, Article.class);
         User author = authService.getLoggedInUser(req.getSession().getId());
         if (author == null || !author.getRoleId().equals(SystemConstant.ADMIN_ROLE)) {
@@ -75,8 +78,8 @@ public class ArticleAPI extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-        ObjectMapper mapper = new ObjectMapper();
-        String payload = req.getReader().lines().collect(Collectors.joining());
+        mapper = new ObjectMapper();
+        payload = req.getReader().lines().collect(Collectors.joining());
         Model model = mapper.readValue(payload, Model.class);
         if (model.getIds() != null) {
             articleService.delete(model.getIds());

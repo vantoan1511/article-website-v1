@@ -18,21 +18,21 @@ public class CommentDao extends JdbcTemplateImpl<Comment> implements ICommentDao
     public List<Comment> findByArticleId(Pageable pageable, Long id) {
         sql = "SELECT * FROM comments WHERE articleid=? ";
         sql = SQLBuilder.build(sql, pageable);
-        return query(sql, new CommentMapper(), id  );
+        return query(sql, new CommentMapper(), id);
     }
 
     @Override
     public List<Comment> findByUserId(Pageable pageable, Long id) {
         sql = "SELECT * FROM comments WHERE userid=? ";
         sql = SQLBuilder.build(sql, pageable);
-        return query(sql, new CommentMapper(), id );
+        return query(sql, new CommentMapper(), id);
     }
 
     @Override
     public List<Comment> findByParentId(Pageable pageable, Long id) {
         sql = "SELECT * FROM comments WHERE parentid=? ";
         sql = SQLBuilder.build(sql, pageable);
-        return query(sql, new CommentMapper(), id );
+        return query(sql, new CommentMapper(), id);
     }
 
     @Override
@@ -56,5 +56,11 @@ public class CommentDao extends JdbcTemplateImpl<Comment> implements ICommentDao
         sql += "WHERE id=? ";
         update(sql, comment.getContent(), comment.getCreatedDate(), comment.getModifiedDate(),
                 comment.getUserId(), comment.getArticleId(), comment.getParentId(), comment.getId());
+    }
+
+    @Override
+    public void delete(Long id) {
+        sql = "DELETE FROM comments WHERE id=? ";
+        update(sql, id);
     }
 }

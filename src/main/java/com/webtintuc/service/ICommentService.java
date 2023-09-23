@@ -12,6 +12,11 @@ public interface ICommentService {
 
     List<Comment> findByParentId(Pageable pageable, Long id);
 
-
     Comment findById(Long id);
+
+    Comment create(Comment comment);
+
+    Comment update(Comment comment);
+
+    void delete(Long[] ids);
 }
