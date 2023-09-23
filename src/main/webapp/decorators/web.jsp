@@ -39,6 +39,7 @@
 <%@ include file="/common/web/footer.jsp" %>
 
 <!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.23/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 <script src="/template/web/js/jquery.migrate.js"></script>
 <script src="/template/web/scripts/bootstrap/bootstrap.min.js"></script>

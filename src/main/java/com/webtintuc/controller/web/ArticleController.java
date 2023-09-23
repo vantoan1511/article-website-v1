@@ -7,6 +7,7 @@ import com.webtintuc.service.ICategoryService;
 import com.webtintuc.service.ICommentService;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.sqlbuilder.Pageable;
+import com.webtintuc.sqlbuilder.Sorter;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -39,7 +40,9 @@ public class ArticleController extends HttpServlet {
             resp.sendError(404);
         } else {
             Article article = articleService.findById(Long.valueOf(id));
-            List<Comment> comments = commentService.findByArticleId(new Pageable(1, 10), Long.valueOf(id));
+            List<Comment> comments = commentService.findByArticleId(
+                    new Pageable(1, 1000,
+                            new Sorter("createddate", "DESC")), Long.valueOf(id));
 
             article.setViews(article.getViews() + 1);
             articleService.update(article);

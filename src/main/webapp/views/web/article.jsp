@@ -66,7 +66,7 @@
                         </a>
                     </h2>
                     <c:if test="${not empty session}">
-                        <form class="row">
+                        <form id="comment-form" class="row">
                             <div class="col-md-12">
                                 <h3 class="title">Viết bình luận</h3>
                             </div>
@@ -77,16 +77,19 @@
                                     </a>
                                     Phản hồi <i id="parent-content"></i>
                                 </div>
-                                <input type="hidden" id="parentId" value="">
-                                <input type="hidden" id="id" value="">
+                                <input type="hidden" id="parentId" name="parentId" value="">
+                                <input type="hidden" id="id" name="id" value="">
+                                <input type="hidden" id="userId" name="userId" value="${session.user.id}">
+                                <input type="hidden" id="articleId" name="articleId" value="${article.id}">
                                 <textarea id="comment-content" name="content" class="form-control"
                                           placeholder="Bình luận tại đây"></textarea>
                             </div>
-                            <div class="form-group col-md-3">
-                                <button id="submitComment" class="btn btn-primary btn-rounded"
+                            <div class="form-group col-md-12 text-center">
+                                <button id="comment-submit" class="btn btn-primary btn-rounded"
                                         type="button">
                                     <i class="bi bi-send"></i>Gửi
                                 </button>
+                                <button id="reset-btn" type="reset" class="btn btn-magz btn-rounded">Hủy</button>
                             </div>
                         </form>
                     </c:if>
@@ -97,7 +100,7 @@
                             </a> để viết/phản hồi bình luận
                         </div>
                     </c:if>
-                    <div id="comment-list" class="comment-list" hidden="hidden">
+                    <div id="comment-list" class="comment-list">
                         <c:forEach var="comment" items="${comments}">
                             <div class="item">
                                 <div class="user">
@@ -107,8 +110,12 @@
                                     <div class="details">
                                         <h5 class="name">${comment.user.fullname}
                                             <c:if test="${session.user.id == comment.userId}">
-                                                <a href="#">
+                                                <a href="#cmt" title="Chỉnh sửa"
+                                                   onclick="editCmt(${comment.id}, '${comment.content}') ">
                                                     <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                                <a href="#cmt" onclick="deleteCmt(${comment.id})" title="Xóa">
+                                                    <i class="bi bi-trash3"></i>
                                                 </a>
                                             </c:if>
                                         </h5>
@@ -159,16 +166,114 @@
         $('#reply-section').hide();
         $('#cancel-btn').click((e) => {
             e.preventDefault();
+            $('#parentId').val('');
             $('#reply-section').hide();
         });
-        $('#comment-content').focusin(() => {
-            console.log('is focus')
+        $('#reset-btn').click(() => {
+            $('#id').val('');
+        });
+        $('#comment-submit').click((e) => {
+            e.preventDefault();
+            let id = $('#id').val();
+            let parentId = $('#parentId').val();
+            let content = $('#comment-content').val();
+            let formData = $('#comment-form').serializeArray();
+            let data = {};
+            formData.forEach(function (e) {
+                data["" + e.name + ""] = e.value;
+            });
+            if (id !== '') {
+                console.log(data);
+                updateComment(JSON.stringify(data));
+            } else {
+                createComment(JSON.stringify(data));
+            }
         });
     });
 
     function replyCmt(id, content) {
+        $('#parentId').val(id);
         $('#parent-content').text('\'' + content + '\'');
         $('#reply-section').show();
+    }
+
+    function editCmt(id, content) {
+        $('#id').val(id);
+        $('#comment-content').val(content);
+    }
+
+    function deleteCmt(id) {
+        Swal.fire({
+            title: 'Xóa bình luận?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let ids = [];
+                let data = {};
+                ids.push(id);
+                data["ids"] = ids;
+                console.log(JSON.stringify(data));
+                deleteComment(JSON.stringify(data));
+            }
+        });
+    }
+
+    function createComment(data) {
+        const api = '/v1/api/comments/';
+        $.ajax({
+            url: api,
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: data,
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        });
+    }
+
+    function updateComment(data) {
+        const api = '/v1/api/comments/';
+        $.ajax({
+            url: api,
+            type: 'PUT',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: data,
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        });
+    }
+
+    function deleteComment(data) {
+        const api = '/v1/api/comments/';
+        $.ajax({
+            url: api,
+            type: 'DELETE',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: data,
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 </script>
 </body>
