@@ -153,7 +153,7 @@
 
         $('#submit-btn').click((e) => {
             e.preventDefault();
-            url = '/api/admin/v1/category';
+            var url = '/v1/api/admin/category';
             var formData = $('#submit-form').serializeArray();
             var data = {};
             var id = $('#id').val();
