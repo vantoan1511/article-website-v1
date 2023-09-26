@@ -36,8 +36,7 @@ public class SearchController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String location = "/views/web/search.jsp";
-        Model model = new Model();
-        model = ParamMapper.toModel(Model.class, req);
+        Model model = ParamMapper.toModel(Model.class, req);
         if (model.getPage() == null || model.getLimit() == null) {
             model.setPage(Integer.parseInt(getInitParameter("page")));
             model.setLimit(Integer.parseInt(getInitParameter("limit")));
@@ -52,15 +51,18 @@ public class SearchController extends HttpServlet {
         if (model.getCategoryCode() == null) {
             model.setCategoryCode(getInitParameter("categoryCode"));
         }
-        model.setArticles(articleService.searchResults(
+        /*model.setArticles(articleService.searchResults(
                         new Pageable(model.getPage(), model.getLimit(),
                                 new Sorter(model.getSortBy(), model.getSortOrder()))
                         , model.getKeyword(), model.getDateFormat(), model.getCategoryCode()
                 )
-        );
-        model.getArticles().forEach(
-                item -> item.setCategory(categoryService.findById(item.getCategoryId()))
-        );
+        );*/
+        model.setArticles(articleService.findByFilters(
+                new Pageable(model.getPage(), model.getLimit(),
+                        new Sorter(model.getSortBy(), model.getSortOrder())),
+                new Filter(model.getKeyword(), model.getDateFormat(), model.getCategoryCode())
+        ));
+
         model.setCategories(categoryService.findAll());
         model.setTotalItems(articleService.countByFilters(
                 new Filter(model.getKeyword(), model.getDateFormat(), model.getCategoryCode())));
@@ -70,6 +72,6 @@ public class SearchController extends HttpServlet {
         req.getRequestDispatcher(location).forward(req, resp);
 
         //testing section
-        System.out.println(model.getTotalItems());
+        //System.out.println(model.getTotalItems());
     }
 }

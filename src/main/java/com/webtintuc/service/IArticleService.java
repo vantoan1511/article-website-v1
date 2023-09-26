@@ -23,9 +23,6 @@ public interface IArticleService {
 
     List<Article> findFromLastMonth(Pageable pageable);
 
-
-    List<Article> searchResults(Pageable pageable, String keyword, String dateFormat, String categoryCode);
-
     List<Article> findByFilters(Pageable pageable, Filter filter);
 
     Article findById(Long id);

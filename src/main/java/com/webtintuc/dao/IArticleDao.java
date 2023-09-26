@@ -25,6 +25,8 @@ public interface IArticleDao {
 
     List<Article> findFromLastMonth(Pageable pageable);
 
+    List<Article> findByFilters(Pageable pageable, Filter filter);
+
     Long save(Article article);
 
     void update(Article article);

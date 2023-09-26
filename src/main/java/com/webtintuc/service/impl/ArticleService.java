@@ -1,6 +1,7 @@
 package com.webtintuc.service.impl;
 
 import com.webtintuc.dao.IArticleDao;
+import com.webtintuc.dao.ICategoryDao;
 import com.webtintuc.model.Article;
 import com.webtintuc.service.IArticleService;
 import com.webtintuc.sqlbuilder.Filter;
@@ -14,7 +15,10 @@ import java.util.List;
 public class ArticleService implements IArticleService {
 
     @Inject
-    IArticleDao articleDao;
+    private IArticleDao articleDao;
+
+    @Inject
+    private ICategoryDao categoryDao;
 
     @Override
     public List<Article> findAll() {
@@ -57,45 +61,10 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public List<Article> searchResults(Pageable pageable, String keyword, String dateFormat, String categoryCode) {
-        List<Article> keywordResult = findByKeyword(pageable, keyword);
-        List<Article> codeResult;
-        List<Article> dateResult;
-
-        codeResult = switch (categoryCode) {
-            case "all" -> findAll();
-            default -> findByCategoryCode(pageable, categoryCode);
-        };
-
-        dateResult = switch (dateFormat) {
-            case "today" -> findToday(pageable);
-            case "last-week" -> findFromLastWeek(pageable);
-            case "last-month" -> findFromLastMonth(pageable);
-            default -> findAll();
-        };
-        keywordResult = ListUtilImpl.intersect(keywordResult, codeResult);
-        return ListUtilImpl.intersect(keywordResult, dateResult);
-    }
-
-    @Override
     public List<Article> findByFilters(Pageable pageable, Filter filter) {
-        List<Article> keywordResult = findByKeyword(pageable, filter.getKeyword());
-        List<Article> codeResult;
-        List<Article> dateResult;
-
-        codeResult = switch (filter.getCategoryCode()) {
-            case "all" -> findAll();
-            default -> findByCategoryCode(pageable, filter.getCategoryCode());
-        };
-
-        dateResult = switch (filter.getDateFormat()) {
-            case "today" -> findToday(pageable);
-            case "last-week" -> findFromLastWeek(pageable);
-            case "last-month" -> findFromLastMonth(pageable);
-            default -> findAll();
-        };
-        keywordResult = ListUtilImpl.intersect(keywordResult, codeResult);
-        return ListUtilImpl.intersect(keywordResult, dateResult);
+        List<Article> articles = articleDao.findByFilters(pageable, filter);
+        articles.forEach(item-> item.setCategory(categoryDao.findById(item.getCategoryId())));
+        return articles;
     }
 
     @Override

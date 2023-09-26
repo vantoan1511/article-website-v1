@@ -78,6 +78,23 @@ public class ArticleDao extends JdbcTemplateImpl<Article> implements IArticleDao
         return query(sql, new ArticleMapper());
     }
 
+    public List<Article> findByFilters(Pageable pageable, Filter filter) {
+        sql = "SELECT * FROM article a INNER JOIN category c ON ";
+        sql += "a.categoryid=c.id WHERE (title LIKE '%" + filter.getKeyword() + "%' ";
+        sql += "OR content LIKE '%" + filter.getKeyword() + "%') ";
+        sql += "AND createddate >= CASE ";
+        sql += "WHEN ?='today' THEN CURRENT_DATE() ";
+        sql += "WHEN ?='last-week' THEN DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ";
+        sql += "WHEN ?='last-month' THEN DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
+        sql += "ELSE DATE('1000-01-01') END ";
+        sql += "AND code LIKE CASE ";
+        sql += "WHEN ?='all' THEN '%%' ";
+        sql += "ELSE ? END ";
+        sql = SQLBuilder.build(sql, pageable);
+        return query(sql, new ArticleMapper(), filter.getDateFormat(), filter.getDateFormat(), filter.getDateFormat(),
+                filter.getCategoryCode(), filter.getCategoryCode());
+    }
+
     @Override
     public Long save(Article article) {
         sql = "INSERT INTO article(title, description, thumbnail, content, views, categoryid, ";

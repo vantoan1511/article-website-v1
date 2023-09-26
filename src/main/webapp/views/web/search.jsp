@@ -80,13 +80,15 @@
                         <li id="popular"><a href="">Phổ biến</a></li>
                     </ul>
                     <div class="nav-tabs-right">
-                        <select id="limit-select" class="form-control">
-                            <option>Chọn số dòng</option>
-                            <option value="2">2</option>
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                        </select>
+                        Dòng
+                        <label>
+                            <select id="limit-select" class="form-control">
+                                <option value="2">2</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                            </select>
+                        </label>
                     </div>
                 </div>
                 <div class="search-result">
