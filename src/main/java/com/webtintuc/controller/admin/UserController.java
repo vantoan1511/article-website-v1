@@ -56,7 +56,7 @@ public class UserController extends HttpServlet {
                 model.setUser(userService.findById(Long.valueOf(id)));
             }
             model.setRoles(roleService.findAll(null));
-            location = "/views/admin/article/edit.jsp";
+            location = "/views/admin/user/edit.jsp";
         }
         req.setAttribute("model", model);
         req.getRequestDispatcher(location).forward(req, resp);

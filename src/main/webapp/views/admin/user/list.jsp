@@ -45,7 +45,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-3">
-                        <a href="/admin/article?tab=edit" class="btn btn-app"
+                        <a href="/admin/users?tab=edit" class="btn btn-app"
                            title="Thêm bài viết"> <i class="fas fa-plus"></i> Thêm mới
                         </a>
                         <button disabled id="delete-btn" type="button"
@@ -106,11 +106,12 @@
                             <td>${user.email}</td>
                             <td>${user.role.name}</td>
                             <td class="project-actions text-right">
-                                <a target="_blank" class="btn btn-info btn-sm" href="/article?id=${user.id}">
+                                <a target="_blank" class="btn btn-info btn-sm"
+                                   href="/profile?username=${user.username}">
                                     <i class="fas fa-folder"></i> Xem
                                 </a>
                                 <a class="btn btn-success btn-sm"
-                                   href="/admin/article?tab=edit&id=${user.id}">
+                                   href="/admin/users?tab=edit&id=${user.id}">
                                     <i class="fas fa-pencil-alt"></i> Sửa
                                 </a>
                             </td>
