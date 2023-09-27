@@ -62,7 +62,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="/admin/users" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>Quản lý người dùng</p>
                     </a>
                 </li>
