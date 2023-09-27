@@ -22,7 +22,8 @@ public class AuthFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String uri = req.getRequestURI();
         String sessionId = req.getSession().getId();
-        if (authService.isLoggedIn(sessionId) && (uri.contains("login") || uri.contains("register"))) {
+        if (authService.isLoggedIn(sessionId) &&
+                (uri.contains("login") || uri.contains("register"))) {
             resp.sendRedirect("/home");
         } else {
             chain.doFilter(request, response);
