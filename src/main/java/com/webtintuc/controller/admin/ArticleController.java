@@ -5,6 +5,7 @@ import com.webtintuc.sqlbuilder.Pageable;
 import com.webtintuc.sqlbuilder.Sorter;
 import com.webtintuc.service.IArticleService;
 import com.webtintuc.service.ICategoryService;
+import com.webtintuc.util.ParamMapper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/admin/article",
         initParams = {@WebInitParam(name = "page", value = "1"),
-                @WebInitParam(name = "limit", value = "2"),
+                @WebInitParam(name = "limit", value = "5"),
                 @WebInitParam(name = "sortBy", value = "createddate"),
                 @WebInitParam(name = "sortOrder", value = "DESC")})
 public class ArticleController extends HttpServlet {
@@ -32,25 +33,18 @@ public class ArticleController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tab = req.getParameter("tab");
         String location = "";
-        Model model = new Model();
+        Model model = ParamMapper.toModel(Model.class, req);
 
         if (tab == null || tab.equals("list")) {
-            String page = req.getParameter("page");
-            String limit = req.getParameter("limit");
-            String sortBy = req.getParameter("sortBy");
-            String sortOrder = req.getParameter("sortOrder");
-            if (page == null || limit == null) {
-                page = getInitParameter("page");
-                limit = getInitParameter("limit");
+            if (model.getPage() == null || model.getLimit() == null) {
+                model.setPage(Integer.parseInt(getInitParameter("page")));
+                model.setLimit(Integer.parseInt(getInitParameter("limit")));
             }
-            if (sortBy == null || sortOrder == null) {
-                sortBy = getInitParameter("sortBy");
-                sortOrder = getInitParameter("sortOrder");
+            if (model.getSortBy() == null || model.getSortOrder() == null) {
+                model.setSortBy(getInitParameter("sortBy"));
+                model.setSortOrder(getInitParameter("sortOrder"));
             }
-            model.setPage(Integer.valueOf(page));
-            model.setLimit(Integer.valueOf(limit));
-            model.setSortBy(sortBy);
-            model.setSortOrder(sortOrder);
+
             model.setTotalItems(articleService.getTotalItems());
             model.setTotalPages((int) Math.ceil((double) model.getTotalItems() / model.getLimit()));
             model.setArticles(articleService.findAll(new Pageable(model.getPage(), model.getLimit(),
