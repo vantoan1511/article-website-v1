@@ -1,8 +1,14 @@
 package com.webtintuc.service;
 
 import com.webtintuc.model.User;
+import com.webtintuc.sqlbuilder.Pageable;
+
+import java.util.List;
 
 public interface IUserService {
+
+    List<User> findAll(Pageable pageable);
+
     User findById(Long id);
 
     User findByUsername(String username);
@@ -18,4 +24,6 @@ public interface IUserService {
     User update(User user);
 
     void resetPassword(String email);
+
+    Integer getTotalItems();
 }

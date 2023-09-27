@@ -1,9 +1,11 @@
 package com.webtintuc.service.impl;
 
 import com.webtintuc.constant.SystemConstant;
+import com.webtintuc.dao.IRoleDao;
 import com.webtintuc.dao.IUserDao;
 import com.webtintuc.model.User;
 import com.webtintuc.service.IUserService;
+import com.webtintuc.sqlbuilder.Pageable;
 import org.mindrot.jbcrypt.BCrypt;
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;
@@ -12,17 +14,30 @@ import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.UUID;
 
 public class UserService implements IUserService {
+
     @Inject
     private IUserDao userDao;
+
+    @Inject
+    private IRoleDao roleDao;
 
     private User user = new User();
 
     @Override
+    public List<User> findAll(Pageable pageable) {
+        List<User> users = userDao.findAll(pageable);
+        users.forEach(item -> item.setRole(roleDao.findById(item.getRoleId())));
+        return users;
+    }
+
+    @Override
     public User findById(Long id) {
-        return userDao.findById(id).setPassword("");
+        user = userDao.findById(id).setPassword("").setRole(roleDao.findById(user.getRoleId()));
+        return user;
     }
 
     @Override
@@ -85,5 +100,10 @@ public class UserService implements IUserService {
                     .buildMailer();
             mailer.sendMail(mail);
         }
+    }
+
+    @Override
+    public Integer getTotalItems() {
+        return userDao.countAll();
     }
 }
