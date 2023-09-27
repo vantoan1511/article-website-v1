@@ -18,6 +18,10 @@ public class Model {
     private List<Article> articles = new ArrayList<>();
     private List<Category> categories = new ArrayList<>();
 
+    private User user;
+    private List<User> users = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
+
     public Integer getPage() {
         return page;
     }
@@ -120,5 +124,29 @@ public class Model {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
