@@ -14,6 +14,7 @@ import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
 
 import javax.inject.Inject;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,24 +37,33 @@ public class UserService implements IUserService {
 
     @Override
     public User findById(Long id) {
-        user = userDao.findById(id).setPassword("").setRole(roleDao.findById(user.getRoleId()));
+        user = userDao.findById(id);
+        user.setPassword("");
+        user.setRole(roleDao.findById(user.getRoleId()));
         return user;
     }
 
     @Override
     public User findByUsername(String username) {
-        return userDao.findByUsername(username).setPassword("");
+        user = userDao.findByUsername(username);
+        user.setPassword("");
+        return user;
     }
 
     @Override
     public User findByEmail(String email) {
-        return userDao.findByEmail(email).setPassword("");
+        user = userDao.findByEmail(email);
+        user.setPassword("");
+        return user;
     }
 
     @Override
     public User findByToken(String token) {
         user = userDao.findByToken(token);
-        return user != null ? user.setPassword("") : null;
+        if (user != null) {
+            user.setPassword("");
+        }
+        return user != null ? user : null;
     }
 
     public User validate(String username, String password) {
@@ -71,14 +81,28 @@ public class UserService implements IUserService {
         if (userDao.findByEmail(user.getEmail()) != null || userDao.findByUsername(user.getUsername()) != null) {
             return null;
         }
-        return userDao.save(user
-                .setAvatar("/template/admin/dist/img/user2-160x160.jpg")
-                .setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT)));
+        user.setAvatar("/template/admin/dist/img/user2-160x160.jpg");
+        user.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
+        return userDao.save(user);
     }
 
     @Override
     public User update(User user) {
-        userDao.update(user);
+        User oldUser = userDao.findById(user.getId());
+        Class<?> userClass = User.class;
+        Field[] fields = userClass.getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(user);
+                if (value != null) {
+                    field.set(oldUser, value);
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        userDao.update(oldUser);
         return findById(user.getId());
     }
 
@@ -87,7 +111,8 @@ public class UserService implements IUserService {
         User user = userDao.findByEmail(email);
         if (user != null) {
             String token = UUID.randomUUID().toString();
-            userDao.update(user.setToken(token));
+            user.setToken(token);
+            userDao.update(user);
             //send an email contains the token
             Email mail = EmailBuilder.startingBlank().from("Web-tin-tuc", "vantoan1517@gmail.com")
                     .to(user.getUsername(), email)
