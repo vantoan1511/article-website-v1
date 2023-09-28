@@ -44,9 +44,9 @@ public class ResetController extends HttpServlet {
         String password = req.getParameter("password");
         String token = req.getSession().getAttribute("token").toString();
         User user = userService.findByToken(token);
-        user = userService.update(user
-                .setToken(null)
-                .setPassword(BCrypt.hashpw(password, SystemConstant.SALT)));
+        user.setToken("");
+        user.setPassword(BCrypt.hashpw(password, SystemConstant.SALT));
+        user = userService.update(user);
         resp.sendRedirect("/login?type=success&msg=reset_success");
     }
 }

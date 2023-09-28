@@ -14,71 +14,63 @@ public class User extends BaseModel {
         return fullname;
     }
 
-    public User setFullname(String fullname) {
+    public void setFullname(String fullname) {
         this.fullname = fullname;
-        return this;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public User setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAvatar() {
         return avatar;
     }
 
-    public User setAvatar(String avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
-        return this;
     }
 
     public String getToken() {
         return token;
     }
 
-    public User setToken(String token) {
+    public void setToken(String token) {
         this.token = token;
-        return this;
     }
 
     public Long getRoleId() {
         return roleId;
     }
 
-    public User setRoleId(Long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
-        return this;
     }
 
     public Role getRole() {
         return role;
     }
 
-    public User setRole(Role role) {
+    public void setRole(Role role) {
         this.role = role;
-        return this;
     }
 }
