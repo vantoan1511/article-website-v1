@@ -1,6 +1,7 @@
 package com.webtintuc.service.impl;
 
 import com.webtintuc.constant.SystemConstant;
+import com.webtintuc.converter.UserConverter;
 import com.webtintuc.dao.IRoleDao;
 import com.webtintuc.dao.IUserDao;
 import com.webtintuc.model.User;
@@ -89,18 +90,9 @@ public class UserService implements IUserService {
     @Override
     public User update(User user) {
         User oldUser = userDao.findById(user.getId());
-        Class<?> userClass = User.class;
-        Field[] fields = userClass.getDeclaredFields();
-        for (Field field : fields) {
-            try {
-                field.setAccessible(true);
-                Object value = field.get(user);
-                if (value != null) {
-                    field.set(oldUser, value);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+        UserConverter.convert(oldUser, user);
+        if (user.getPassword() != null) {
+            oldUser.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
         }
         userDao.update(oldUser);
         return findById(user.getId());

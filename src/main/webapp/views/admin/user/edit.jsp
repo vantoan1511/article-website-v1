@@ -35,7 +35,7 @@
                 <div class="col-md-4">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Thông tin người dùng</h3>
+                            <h3 class="card-title">Thông tin chung</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         title="Collapse">
@@ -49,16 +49,7 @@
                                 <input type="text" id="fullname" name="fullname" class="form-control"
                                        value="${model.user.fullname}">
                             </div>
-                            <div class="form-group">
-                                <label for="username">Tên đăng nhập</label>
-                                <input type="text" id="username" name="username" class="form-control"
-                                       value="${model.user.username}">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" id="email" name="email" class="form-control"
-                                       value="${model.user.email}">
-                            </div>
+
                             <div class="form-group">
                                 <label for="role">Vai trò</label> <select id="role"
                                                                           name="roleId"
@@ -85,7 +76,7 @@
                 <div class="col-md-8 col-sm-12">
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">Hoạt động gần đây</h3>
+                            <h3 class="card-title">Thông tin đăng nhập</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         title="Collapse">
@@ -95,11 +86,24 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="username">Tên đăng nhập</label>
+                                <input type="text" id="username" name="username" class="form-control"
+                                       value="${model.user.username}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" id="email" name="email" class="form-control"
+                                       value="${model.user.email}">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" class="form-control"
+                                       value="${model.user.password}">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-12 text-right">
                             <button type="submit" class="btn btn-app" id="submitBtn">
                                 <i class="fas fa-save"></i>Lưu thay đổi
                             </button>
@@ -123,11 +127,13 @@
                 data["" + e.name + ""] = e.value;
             });
             if (id === '') {
+                createUser(data);
             } else {
+                updateUser(data);
             }
         });
 
-        function createNews(data) {
+        function createUser(data) {
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -143,7 +149,7 @@
             });
         }
 
-        function updateNews(data) {
+        function updateUser(data) {
             $.ajax({
                 url: url,
                 type: 'PUT',
