@@ -6,6 +6,7 @@ import com.webtintuc.service.IAuthService;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.service.impl.UserSession;
 import com.webtintuc.util.MessageUtil;
+import com.webtintuc.util.ParamMapper;
 import com.webtintuc.util.SessionUtil;
 
 import javax.inject.Inject;
@@ -51,11 +52,11 @@ public class AuthController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String next = req.getParameter("next");
 
-        User user = new User();
-        user.setFullname(req.getParameter("fullname"))
+        User user = ParamMapper.toModel(User.class, req);
+        /*user.setFullname(req.getParameter("fullname"))
                 .setUsername(req.getParameter("username"))
                 .setEmail(req.getParameter("email"))
-                .setPassword(req.getParameter("password"));
+                .setPassword(req.getParameter("password"));*/
         String uri = req.getRequestURI();
         String location = "/home";
 
