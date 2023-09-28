@@ -26,4 +26,6 @@ public interface IUserService {
     void resetPassword(String email);
 
     Integer getTotalItems();
+
+    void delete(Long[] ids);
 }

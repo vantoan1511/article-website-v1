@@ -82,7 +82,9 @@ public class UserService implements IUserService {
         if (userDao.findByEmail(user.getEmail()) != null || userDao.findByUsername(user.getUsername()) != null) {
             return null;
         }
-        user.setAvatar("/template/admin/dist/img/user2-160x160.jpg");
+        if (user.getAvatar() == null) {
+            user.setAvatar("/template/admin/dist/img/user2-160x160.jpg");
+        }
         user.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
         return userDao.save(user);
     }
@@ -90,6 +92,16 @@ public class UserService implements IUserService {
     @Override
     public User update(User user) {
         User oldUser = userDao.findById(user.getId());
+        if (!oldUser.getUsername().equals(user.getUsername())) {
+            if (userDao.findByUsername(user.getUsername()) != null) {
+                return null;
+            }
+        }
+        if (!oldUser.getEmail().equals(user.getEmail())) {
+            if (userDao.findByEmail(user.getEmail()) != null) {
+                return null;
+            }
+        }
         UserConverter.convert(oldUser, user);
         if (user.getPassword() != null) {
             oldUser.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
@@ -122,5 +134,12 @@ public class UserService implements IUserService {
     @Override
     public Integer getTotalItems() {
         return userDao.countAll();
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        for (Long id : ids) {
+            userDao.delete(id);
+        }
     }
 }

@@ -21,4 +21,6 @@ public interface IUserDao {
     void update(User user);
 
     Integer countAll();
+
+    void delete(Long id);
 }

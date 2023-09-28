@@ -51,14 +51,9 @@ public class AuthController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         String next = req.getParameter("next");
-
-        User user = ParamMapper.toModel(User.class, req);
-        /*user.setFullname(req.getParameter("fullname"))
-                .setUsername(req.getParameter("username"))
-                .setEmail(req.getParameter("email"))
-                .setPassword(req.getParameter("password"));*/
         String uri = req.getRequestURI();
         String location = "/home";
+        User user = ParamMapper.toModel(User.class, req);
 
         if (uri.contains("login")) {
             UserSession session = authService.login(user.getUsername(), user.getPassword(), req);
@@ -75,6 +70,8 @@ public class AuthController extends HttpServlet {
                 location = "/login?type=danger&msg=login_failed";
             }
         } else if (uri.contains("register")) {
+            user.setAvatar("/template/admin/dist/img/user2-160x160.jpg");
+            user.setRoleId(SystemConstant.USER_ROLE);
             user = userService.register(user);
             if (user == null) {
                 location = "/register?type=danger&msg=email_username_existed";

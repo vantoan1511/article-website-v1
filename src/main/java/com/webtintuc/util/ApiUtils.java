@@ -29,7 +29,11 @@ public class ApiUtils {
     public static void returnJsonData(HttpServletResponse resp, Object object) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(resp.getOutputStream(), object);
+            if (object != null) {
+                mapper.writeValue(resp.getOutputStream(), object);
+            } else {
+                resp.sendError(500);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

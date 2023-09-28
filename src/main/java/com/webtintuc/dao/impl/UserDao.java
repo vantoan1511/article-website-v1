@@ -50,9 +50,10 @@ public class UserDao extends JdbcTemplateImpl<User> implements IUserDao {
 
     @Override
     public User save(User user) {
-        sql = "INSERT INTO user(fullname, email, username, password) ";
-        sql += "VALUES(?, ?, ?, ?)";
-        Long id = insert(sql, user.getFullname(), user.getEmail(), user.getUsername(), user.getPassword());
+        sql = "INSERT INTO user(fullname, email, username, password, avatar, roleid) ";
+        sql += "VALUES(?, ?, ?, ?, ?, ?)";
+        Long id = insert(sql, user.getFullname(), user.getEmail(), user.getUsername(), user.getPassword(),
+                user.getAvatar(), user.getRoleId());
         return findById(id);
     }
 
@@ -68,5 +69,11 @@ public class UserDao extends JdbcTemplateImpl<User> implements IUserDao {
     public Integer countAll() {
         sql = "SELECT count(*) FROM user ";
         return count(sql);
+    }
+
+    @Override
+    public void delete(Long id) {
+        sql = "DELETE FROM user WHERE id=? ";
+        update(sql, id);
     }
 }

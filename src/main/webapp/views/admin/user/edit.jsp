@@ -126,6 +126,7 @@
             $.each(formData, (i, e) => {
                 data["" + e.name + ""] = e.value;
             });
+            console.log(data);
             if (id === '') {
                 createUser(data);
             } else {
@@ -157,7 +158,7 @@
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (rs) {
-                    showAlert('Thành công!', 'Cập nhật thành công!', 'success', '?tab=edit&id=' + rs.id);
+                    showAlert('Thành công!', 'Cập nhật thành công!', 'success', '?tab=edit&id=' + id);
                 },
                 error: function (error) {
                     showAlert('Thất bại!', 'Cập nhật Thất bại!', 'error', '?tab=edit&id=' + id + '&msg=update_failed');

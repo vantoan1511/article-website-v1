@@ -144,7 +144,7 @@
 <script>
     $(document).ready(() => {
 
-        articlePaginate();
+        paginate();
 
         $('#select-all').change(function () {
             $('.check-box').prop('checked', this.checked);
@@ -168,7 +168,7 @@
 
         $('#delete-btn').click((e) => {
             e.preventDefault();
-            const url = '/api/admin/v1/article'
+            const url = '/v1/api/admin/user'
             var data = {};
             var ids = [];
             $('tbody .form-check-input:checked').each((i, e) => {
@@ -178,7 +178,7 @@
             console.log(JSON.stringify(data));
             Swal.fire({
                 title: 'Chắc chưa?',
-                text: "Bài viết sẽ bị xóa vĩnh viễn!",
+                text: "Các người dùng được chọn sẽ bị xóa vĩnh viễn!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -188,12 +188,12 @@
                 allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    deleteArticle(url, data);
+                    deleteUser(url, data);
                 }
             });
         });
 
-        function deleteArticle(url, data) {
+        function deleteUser(url, data) {
             $.ajax({
                 url: url,
                 type: 'DELETE',
@@ -218,7 +218,7 @@
             });
         }
 
-        function articlePaginate() {
+        function paginate() {
             const url = '/admin/users?tab=list';
             var startPage = ${model.page};
             var totalPages = ${model.totalPages};

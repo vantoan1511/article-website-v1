@@ -1,5 +1,6 @@
 package com.webtintuc.api.admin;
 
+import com.webtintuc.model.Model;
 import com.webtintuc.model.User;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.util.ApiUtils;
@@ -32,6 +33,8 @@ public class UserAPI extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        Model model = ApiUtils.parseRequestBody(req, Model.class);
+        userService.delete(model.getIds());
+        ApiUtils.returnJsonData(resp, "");
     }
 }
