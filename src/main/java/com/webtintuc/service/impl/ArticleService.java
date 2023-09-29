@@ -3,12 +3,16 @@ package com.webtintuc.service.impl;
 import com.webtintuc.dao.IArticleDao;
 import com.webtintuc.dao.ICategoryDao;
 import com.webtintuc.model.Article;
+import com.webtintuc.model.User;
 import com.webtintuc.service.IArticleService;
+import com.webtintuc.service.IAuthService;
 import com.webtintuc.sqlbuilder.Filter;
 import com.webtintuc.sqlbuilder.Pageable;
 import com.webtintuc.util.ListUtilImpl;
 
 import javax.inject.Inject;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,7 @@ public class ArticleService implements IArticleService {
 
     @Inject
     private ICategoryDao categoryDao;
+
 
     @Override
     public List<Article> findAll() {
@@ -73,12 +78,20 @@ public class ArticleService implements IArticleService {
     }
 
     @Override
-    public Article save(Article article) {
+    public Article create(Article article) {
+        article.setViews(0);
+        article.setCreatedDate(Timestamp.from(Instant.now()));
+        article.setModifiedDate(article.getCreatedDate());
         return articleDao.findById(articleDao.save(article));
     }
 
     @Override
     public Article update(Article article) {
+        Article oldArticle = articleDao.findById(article.getId());
+        article.setViews(oldArticle.getViews());
+        article.setCreatedDate(oldArticle.getCreatedDate());
+        article.setCreatedBy(oldArticle.getCreatedBy());
+        article.setModifiedDate(Timestamp.from(Instant.now()));
         articleDao.update(article);
         return articleDao.findById(article.getId());
     }

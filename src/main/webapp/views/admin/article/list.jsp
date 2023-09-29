@@ -177,7 +177,7 @@
 
         $('#delete-btn').click((e) => {
             e.preventDefault();
-            const url = '/api/admin/v1/article'
+            const url = '/v1/api/admin/article'
             var data = {};
             var ids = [];
             $('tbody .form-check-input:checked').each((i, e) => {

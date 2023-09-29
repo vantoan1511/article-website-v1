@@ -145,7 +145,7 @@
                     showAlert('Thành công!', 'Thêm mới thành công!', 'success', '?tab=edit&id=' + rs.id);
                 },
                 error: function (error) {
-                    showAlert('Thất bại!', 'Thêm mới Thất bại!', 'error', '&msg=add_failed');
+                    showAlert('Thất bại!', 'Thêm mới Thất bại!', 'error');
                 }
             });
         }
@@ -175,7 +175,9 @@
                 allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = url;
+                    if (url !== undefined) {
+                        window.location.href = url;
+                    }
                 }
             });
         }

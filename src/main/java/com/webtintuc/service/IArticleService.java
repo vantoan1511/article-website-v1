@@ -27,7 +27,7 @@ public interface IArticleService {
 
     Article findById(Long id);
 
-    Article save(Article article);
+    Article create(Article article);
 
     Article update(Article article);
 
