@@ -103,7 +103,7 @@ public class UserService implements IUserService {
             }
         }
         UserConverter.convert(oldUser, user);
-        if (user.getPassword() != null) {
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
             oldUser.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
         }
         userDao.update(oldUser);

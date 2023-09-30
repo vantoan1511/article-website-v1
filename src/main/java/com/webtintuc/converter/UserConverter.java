@@ -12,7 +12,7 @@ public class UserConverter {
             try {
                 field.setAccessible(true);
                 Object value = field.get(src);
-                if (value != null) {
+                if (value != null && !"".equals(value)) {
                     field.set(des, value);
                 }
             } catch (IllegalAccessException e) {
