@@ -5,7 +5,7 @@ import com.webtintuc.service.IRoleService;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.sqlbuilder.Pageable;
 import com.webtintuc.sqlbuilder.Sorter;
-import com.webtintuc.util.ParamMapper;
+import com.webtintuc.util.URIUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String tab = req.getParameter("tab");
         String location = "";
-        Model model = ParamMapper.toModel(Model.class, req);
+        Model model = URIUtils.toModel(Model.class, req);
 
         if (tab == null || tab.equals("list")) {
 

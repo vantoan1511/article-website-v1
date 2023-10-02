@@ -5,7 +5,7 @@ import com.webtintuc.service.IArticleService;
 import com.webtintuc.service.ICategoryService;
 import com.webtintuc.sqlbuilder.Filter;
 import com.webtintuc.sqlbuilder.Pageable;
-import com.webtintuc.util.ParamMapper;
+import com.webtintuc.util.URIUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -30,9 +30,9 @@ public class CategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String uri = req.getRequestURI();
-        String code = uri.substring(uri.lastIndexOf("/") + 1);
+        String code = URIUtils.getPathParam(req);
         String location = "";
-        Model model = ParamMapper.toModel(Model.class, req);
+        Model model = URIUtils.toModel(Model.class, req);
         if (code.equals("categories") || code.isEmpty()) {
             resp.sendRedirect("/home");
         } else {

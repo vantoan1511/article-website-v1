@@ -2,7 +2,6 @@ package com.webtintuc.controller.admin;
 
 import com.webtintuc.model.Category;
 import com.webtintuc.service.ICategoryService;
-import com.webtintuc.util.ParamMapper;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;

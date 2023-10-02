@@ -6,7 +6,7 @@ import com.webtintuc.sqlbuilder.Pageable;
 import com.webtintuc.sqlbuilder.Sorter;
 import com.webtintuc.service.IArticleService;
 import com.webtintuc.service.ICategoryService;
-import com.webtintuc.util.ParamMapper;
+import com.webtintuc.util.URIUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -36,7 +36,7 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Article> latestArticles = new ArrayList<>();
         List<Article> popularArticles = new ArrayList<>();
-        Model model = ParamMapper.toModel(Model.class, req);
+        Model model = URIUtils.toModel(Model.class, req);
 
         if (model.getPage() == null || model.getLimit() == null) {
             model.setPage(Integer.valueOf(getInitParameter("page")));

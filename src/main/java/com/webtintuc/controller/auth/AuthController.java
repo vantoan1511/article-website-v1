@@ -6,7 +6,7 @@ import com.webtintuc.service.IAuthService;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.service.impl.UserSession;
 import com.webtintuc.util.MessageUtil;
-import com.webtintuc.util.ParamMapper;
+import com.webtintuc.util.URIUtils;
 import com.webtintuc.util.SessionUtil;
 
 import javax.inject.Inject;
@@ -53,7 +53,7 @@ public class AuthController extends HttpServlet {
         String next = req.getParameter("next");
         String uri = req.getRequestURI();
         String location = "/home";
-        User user = ParamMapper.toModel(User.class, req);
+        User user = URIUtils.toModel(User.class, req);
 
         if (uri.contains("login")) {
             UserSession session = authService.login(user.getUsername(), user.getPassword(), req);
