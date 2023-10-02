@@ -48,41 +48,6 @@
                 </article>
             </c:forEach>
         </div>
-        <%--<div class="row">
-            <c:forEach var="article" items="${model.articles}">
-                <div class="col-md-3 col-sm-6">
-                    <article class="article">
-                        <div class="inner">
-                            <figure>
-                                <a href="/article?id=${article.id}">
-                                    <img src="${article.thumbnail}" alt="Sample Article">
-                                </a>
-                            </figure>
-                            <div class="padding">
-                                <div class="detail">
-                                    <div class="time">
-                                        <i class="bi bi-clock"></i>
-                                        <fmt:formatDate value="${article.createdDate}" pattern="HH:mm dd/MM/yy"/>
-                                    </div>
-                                    <div class="category"><a href="#">${article.category.name}</a></div>
-                                </div>
-                                <h2 class="truncate-2lines"><a href="/article?id=${article.id}">${article.title}</a>
-                                </h2>
-                                <p class="truncate-3lines">${article.description}</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </c:forEach>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <ul id="pagination" class="pagination"></ul>
-                <div class="pagination-help-text">
-                    Hiển thị ${model.limit} trong số ${model.totalItems} bài viết &dash; Trang ${model.page}
-                </div>
-            </div>
-        </div>--%>
     </div>
 </section>
 <section class="home">

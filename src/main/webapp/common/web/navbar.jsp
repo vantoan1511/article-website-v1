@@ -31,36 +31,9 @@
                     <li class="for-tablet"><a href="/login">Đăng nhập</a></li>
                     <li class="for-tablet"><a href="/register">Đăng ký</a></li>
                 </c:if>
-                <li class="dropdown magz-dropdown"><a href="category.html">Thể
-                    loại <i class="ion-ios-arrow-right"></i>
-                </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Thể thao</a></li>
-                        <li><a href="#">Khoa học - Công nghệ</a></li>
-                        <li><a href="#">Chính trị</a></li>
-                        <li><a href="#">Kinh tế</a></li>
-                        <li><a href="#">Văn hóa</a></li>
-                        <li><a href="#">Thời trang</a></li>
-                        <li><a href="#">Ẩm thực</a></li>
-                        <li><a href="#">Giáo dục</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown magz-dropdown"><a href="#">Cá nhân<i
-                        class="ion-ios-arrow-right"></i>
-                </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/profile/${session.user.username}"><i
-                                class="icon ion-person"></i>Tài khoản của tôi</a></li>
-                        <li><a href="#"><i class="icon ion-chatbox"></i> Bình
-                            luận</a></li>
-                        <li><a href="#"><i class="icon ion-key"></i> Đổi mật khẩu</a></li>
-
-                        <li class="divider"></li>
-                        <li><a href="/logout"><i class="icon ion-log-out"></i>
-                            Đăng xuất</a></li>
-                    </ul>
-                </li>
+                <c:forEach items="${model.categories}" var="category">
+                    <li><a href="/categories/${category.code}">${category.name}</a></li>
+                </c:forEach>
             </ul>
         </div>
     </div>
