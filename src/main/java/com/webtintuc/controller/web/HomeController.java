@@ -63,6 +63,7 @@ public class HomeController extends HttpServlet {
         model.getArticles().forEach(
                 item -> item.setCategory(categoryService.findById(item.getCategoryId()))
         );
+        model.setCategories(categoryService.findAll());
         req.setAttribute("latest", latestArticles);
         req.setAttribute("popular", popularArticles);
         req.setAttribute("model", model);
