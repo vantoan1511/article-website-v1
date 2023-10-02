@@ -10,6 +10,7 @@ public class Model {
     private String sortOrder;
     private String dateFormat;
     private String categoryCode;
+    private Category category;
     private String keyword;
     private Integer totalItems;
     private Integer totalPages;
@@ -148,5 +149,13 @@ public class Model {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -34,7 +34,7 @@
                                 <fmt:formatDate value="${article.createdDate}" pattern="EEEE, HH:mm dd/MM/yyyy"/>
                             </li>
                             <li>
-                                <a href="/category?code=${article.category.code}">
+                                <a href="/categories/${article.category.code}">
                                     ${article.category.name}
                                 </a>
                             </li>
@@ -186,6 +186,7 @@
                 console.log(data);
                 updateComment(JSON.stringify(data));
             } else {
+                console.log(JSON.stringify(data));
                 createComment(JSON.stringify(data));
             }
         });
@@ -198,6 +199,7 @@
     }
 
     function editCmt(id, content) {
+        console.log(content);
         $('#id').val(id);
         $('#comment-content').val(content);
     }

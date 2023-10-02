@@ -68,7 +68,7 @@ public class ArticleService implements IArticleService {
     @Override
     public List<Article> findByFilters(Pageable pageable, Filter filter) {
         List<Article> articles = articleDao.findByFilters(pageable, filter);
-        articles.forEach(item-> item.setCategory(categoryDao.findById(item.getCategoryId())));
+        articles.forEach(item -> item.setCategory(categoryDao.findById(item.getCategoryId())));
         return articles;
     }
 
@@ -88,7 +88,8 @@ public class ArticleService implements IArticleService {
     @Override
     public Article update(Article article) {
         Article oldArticle = articleDao.findById(article.getId());
-        article.setViews(oldArticle.getViews());
+        if (article.getViews() == null)
+            article.setViews(oldArticle.getViews());
         article.setCreatedDate(oldArticle.getCreatedDate());
         article.setCreatedBy(oldArticle.getCreatedBy());
         article.setModifiedDate(Timestamp.from(Instant.now()));

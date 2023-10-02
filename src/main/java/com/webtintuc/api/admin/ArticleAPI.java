@@ -28,9 +28,6 @@ public class ArticleAPI extends HttpServlet {
     @Inject
     private IArticleService articleService;
 
-    private ObjectMapper mapper;
-    private String payload;
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         /*req.setCharacterEncoding("UTF-8");

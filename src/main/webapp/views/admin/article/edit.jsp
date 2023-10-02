@@ -46,16 +46,16 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title">Tên bài viết</label>
-                                <input type="text" id="title" name="title" class="form-control"
+                                <input type="text" id="title" name="title" class="form-control" required
                                        value="${model.article.title}">
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả ngắn</label>
-                                <textarea id="description" name="description"
+                                <textarea id="description" name="description" required
                                           class="form-control">${model.article.description}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="category">Thể loại</label> <select id="category"
+                                <label for="category">Thể loại</label> <select id="category" required
                                                                                name="categoryId"
                                                                                class="form-control custom-select">
                                 <option selected>--Chọn thể loại--</option>
@@ -165,7 +165,7 @@
                     showAlert('Thành công!', 'Thêm mới thành công!', 'success', '?tab=edit&id=' + rs.id);
                 },
                 error: function (error) {
-                    showAlert('Thất bại!', 'Thêm mới Thất bại!', 'error', '&msg=add_failed');
+                    showAlert('Thất bại!', 'Thêm mới Thất bại!', 'error', '?tab=edit');
                 }
             });
         }
