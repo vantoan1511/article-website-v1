@@ -23,7 +23,7 @@ public class ResetController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getParameter("token");
         User user = userService.findByToken(token);
-        if (token != null) {
+        if (token != null && !token.equals("none")) {
             if (user != null) {
                 req.getSession().setAttribute("token", token);
                 resp.sendRedirect("/reset");
@@ -44,9 +44,10 @@ public class ResetController extends HttpServlet {
         String password = req.getParameter("password");
         String token = req.getSession().getAttribute("token").toString();
         User user = userService.findByToken(token);
-        user.setToken("");
+        user.setToken("none");
         user.setPassword(password);
         user = userService.update(user);
+        req.getSession().removeAttribute("token");
         resp.sendRedirect("/login?type=success&msg=reset_success");
     }
 }
