@@ -2,6 +2,7 @@ package com.webtintuc.controller.web;
 
 import com.webtintuc.model.Article;
 import com.webtintuc.model.Comment;
+import com.webtintuc.model.Model;
 import com.webtintuc.service.IArticleService;
 import com.webtintuc.service.ICategoryService;
 import com.webtintuc.service.ICommentService;
@@ -36,6 +37,7 @@ public class ArticleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
+        Model model = new Model();
         if (id == null) {
             resp.sendError(404);
         } else {
@@ -55,8 +57,11 @@ public class ArticleController extends HttpServlet {
                     }
             );
 
+            model.setCategories(categoryService.findAll());
+
             req.setAttribute("article", article);
             req.setAttribute("comments", comments);
+            req.setAttribute("model", model);
             req.getRequestDispatcher("/views/web/article.jsp").forward(req, resp);
 
             //testing section

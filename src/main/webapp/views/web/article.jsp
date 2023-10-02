@@ -38,7 +38,7 @@
                                     ${article.category.name}
                                 </a>
                             </li>
-                            <li>Bởi <a href="#">${article.createdBy}</a></li>
+                            <li>Bởi <a href="/profile/${article.createdBy}">${article.createdBy}</a></li>
                             <li><i class="bi bi-eye"></i> ${article.views}</li>
                             <c:if test="${session.user.role.code == 'admin'}">
                                 <li>

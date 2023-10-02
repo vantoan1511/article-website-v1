@@ -31,9 +31,43 @@
                     <li class="for-tablet"><a href="/login">Đăng nhập</a></li>
                     <li class="for-tablet"><a href="/register">Đăng ký</a></li>
                 </c:if>
-                <c:forEach items="${model.categories}" var="category">
-                    <li><a href="/categories/${category.code}">${category.name}</a></li>
-                </c:forEach>
+                <li class="dropdown magz-dropdown magz-dropdown-megamenu">
+                    <a href="#">Tất cả <i class="ion-ios-arrow-right"></i></a>
+                    <div class="dropdown-menu megamenu">
+                        <div class="megamenu-inner">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <ul class="vertical-menu">
+                                        <li><a href="/categories/kinh-te">Kinh tế</a></li>
+                                        <li><a href="/categories/thoi-su">Thời sự</a></li>
+                                        <li><a href="/categories/khoa-hoc">Khoa học</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <ul class="vertical-menu">
+                                        <li><a href="/categories/the-thao">Thể thao</a></li>
+                                        <li><a href="/categories/phap-luat">Pháp luật</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <ul class="vertical-menu">
+                                        <li><a href="/categories/giao-duc">Giáo dục</a></li>
+                                        <li><a href="/categories/doi-song">Đời sống</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <ul class="vertical-menu">
+                                        <li><a href="/categories/thoi-trang">Thời trang</a></li>
+                                        <li><a href="/categories/the-thao-dien-tu">Thể thao điện tử</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/categories/kinh-te">Kinh tế</a></li>
+                <li><a href="/categories/the-thao">Thể thao</a></li>
+                <li><a href="/categories/giao-duc">Giáo dục</a></li>
             </ul>
         </div>
     </div>
