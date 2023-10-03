@@ -20,6 +20,8 @@ public class MessageUtil {
                 msgContent = "Đổi mật khẩu thành công!";
             } else if (msg.equals("timeout")) {
                 msgContent = "Phiên đăng nhập đã hết hạn!";
+            } else if (msg.equals("login_required")) {
+                msgContent = "Cần đăng nhập trước!";
             }
             req.setAttribute("type", type);
             req.setAttribute("msg", msgContent);
