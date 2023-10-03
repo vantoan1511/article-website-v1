@@ -102,11 +102,13 @@
                     </c:if>
                     <div id="comment-list" class="comment-list">
                         <c:forEach var="comment" items="${comments}">
-                            <div class="item">
+                            <div id="cmt-${comment.id}" class="item">
                                 <div class="user">
-                                    <figure>
-                                        <img src="${comment.user.avatar}">
-                                    </figure>
+                                    <a href="/profile/${comment.user.username}">
+                                        <figure>
+                                            <img src="${comment.user.avatar}">
+                                        </figure>
+                                    </a>
                                     <div class="details">
                                         <h5 class="name">${comment.user.fullname}
                                             <c:if test="${session.user.id == comment.userId}">
