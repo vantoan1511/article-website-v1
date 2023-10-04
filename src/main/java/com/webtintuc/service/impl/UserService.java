@@ -38,10 +38,7 @@ public class UserService implements IUserService {
 
     @Override
     public User findById(Long id) {
-        user = userDao.findById(id);
-        user.setPassword("");
-        user.setRole(roleDao.findById(user.getRoleId()));
-        return user;
+        return userDao.findById(id);
     }
 
     @Override
@@ -91,22 +88,7 @@ public class UserService implements IUserService {
 
     @Override
     public User update(User user) {
-        User oldUser = userDao.findById(user.getId());
-        if (!oldUser.getUsername().equals(user.getUsername())) {
-            if (userDao.findByUsername(user.getUsername()) != null) {
-                return null;
-            }
-        }
-        if (!oldUser.getEmail().equals(user.getEmail())) {
-            if (userDao.findByEmail(user.getEmail()) != null) {
-                return null;
-            }
-        }
-        UserConverter.convert(oldUser, user);
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            oldUser.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
-        }
-        userDao.update(oldUser);
+        userDao.update(user);
         return findById(user.getId());
     }
 
