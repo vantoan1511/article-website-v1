@@ -1,7 +1,11 @@
 package com.webtintuc.controller.web;
 
+import com.webtintuc.constant.SystemConstant;
 import com.webtintuc.model.User;
 import com.webtintuc.service.IAuthService;
+import com.webtintuc.service.IUserService;
+import com.webtintuc.util.URIUtils;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,13 +21,31 @@ public class SettingController extends HttpServlet {
     @Inject
     private IAuthService authService;
 
+    @Inject
+    private IUserService userService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String location = "";
         User user = authService.getLoggedInUser(req.getSession().getId());
-        System.out.println(user.getPassword());
         location = "/views/web/settings.jsp";
         req.setAttribute("user", user);
         req.getRequestDispatcher(location).forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        User user = URIUtils.toModel(User.class, req);
+        User oldUser = userService.findById(user.getId());
+        user.setUsername(oldUser.getUsername());
+        user.setToken(oldUser.getToken());
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            user.setPassword(oldUser.getPassword());
+        } else {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), SystemConstant.SALT));
+        }
+        user = userService.update(user);
+        resp.sendRedirect("/settings");
     }
 }
