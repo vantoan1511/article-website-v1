@@ -54,6 +54,7 @@ public class UserController extends HttpServlet {
             String id = req.getParameter("id");
             if (id != null) {
                 model.setUser(userService.findById(Long.valueOf(id)));
+                model.getUser().setPassword("");
             }
             model.setRoles(roleService.findAll(null));
             location = "/views/admin/user/edit.jsp";
