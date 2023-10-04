@@ -87,7 +87,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="username">Tên đăng nhập</label>
-                                <input type="text" id="username" name="username" class="form-control"
+                                <input type="text" id="username" name="username" class="form-control" disabled
                                        value="${model.user.username}">
                             </div>
                             <div class="form-group">
@@ -161,6 +161,7 @@
                     showAlert('Thành công!', 'Cập nhật thành công!', 'success', '?tab=edit&id=' + id);
                 },
                 error: function (error) {
+                    console.log(error);
                     showAlert('Thất bại!', 'Cập nhật Thất bại!', 'error', '?tab=edit&id=' + id + '&msg=update_failed');
                 }
             });
