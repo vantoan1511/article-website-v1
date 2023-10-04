@@ -31,6 +31,7 @@ public class UserAPI extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ApiUtils.init(req, resp);
+
         User updatedUser = ApiUtils.parseRequestBody(req, User.class);
         User oldUser = userService.findById(updatedUser.getId());
         if (updatedUser.getPassword().isEmpty()) {
