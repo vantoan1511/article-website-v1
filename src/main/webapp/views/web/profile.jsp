@@ -46,12 +46,6 @@
                                                 <div class="value">${comments.size()}</div>
                                             </a>
                                         </div>
-                                        <div class="item">
-                                            <a>
-                                                <div class="name">Đã tham gia</div>
-                                                <div class="value">01/01/2023</div>
-                                            </a>
-                                        </div>
                                     </div>
                                     <div class="featured-author-footer">
                                         <c:if test="${user.username == session.user.username}">
