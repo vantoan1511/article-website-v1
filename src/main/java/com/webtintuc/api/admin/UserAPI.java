@@ -1,9 +1,12 @@
 package com.webtintuc.api.admin;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.webtintuc.constant.SystemConstant;
 import com.webtintuc.model.Model;
 import com.webtintuc.model.User;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.util.ApiUtils;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -28,7 +31,15 @@ public class UserAPI extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ApiUtils.init(req, resp);
-        ApiUtils.returnJsonData(resp, userService.update(ApiUtils.parseRequestBody(req, User.class)));
+        User updatedUser = ApiUtils.parseRequestBody(req, User.class);
+        User oldUser = userService.findById(updatedUser.getId());
+        if (updatedUser.getPassword().isEmpty()) {
+            updatedUser.setPassword(oldUser.getPassword());
+        } else {
+            updatedUser.setPassword(BCrypt.hashpw(updatedUser.getPassword(), SystemConstant.SALT));
+        }
+        updatedUser.setUsername(oldUser.getUsername());
+        ApiUtils.returnJsonData(resp, userService.update(updatedUser));
     }
 
     @Override
