@@ -98,7 +98,7 @@
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" id="password" name="password" class="form-control"
-                                       value="${model.user.password}">
+                                       value="${model.user.password}" placeholder="Bỏ trống để giữ nguyên">
                             </div>
                         </div>
                     </div>
@@ -158,6 +158,7 @@
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (rs) {
+                    console.log(rs);
                     showAlert('Thành công!', 'Cập nhật thành công!', 'success', '?tab=edit&id=' + id);
                 },
                 error: function (error) {
