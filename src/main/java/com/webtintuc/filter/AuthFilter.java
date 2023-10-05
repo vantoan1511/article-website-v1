@@ -22,11 +22,12 @@ public class AuthFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String uri = req.getRequestURI();
         String sessionId = req.getSession().getId();
+        String next = req.getRequestURL().toString();
         if (authService.isLoggedIn(sessionId) &&
                 (uri.contains("login") || uri.contains("register"))) {
             resp.sendRedirect("/home");
         } else if (uri.contains("settings") && !authService.isLoggedIn(sessionId)) {
-            resp.sendRedirect("/login?type=danger&msg=login_required");
+            resp.sendRedirect("/login?type=danger&msg=login_required&next=" + next);
         } else {
             chain.doFilter(request, response);
         }
