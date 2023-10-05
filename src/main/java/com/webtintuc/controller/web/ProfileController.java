@@ -34,10 +34,10 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = URIUtils.getPathParam(req);
         String location = "";
-        if (username.isEmpty() || username.equals("profile")) {
-            resp.sendError(404);
+        User user = userService.findByUsername(username);
+        if (username.isEmpty() || username.equals("profile") || user == null) {
+            location = "/views/web/404.jsp";
         } else {
-            User user = userService.findByUsername(username);
             List<Comment> comments = commentService.findByUserId(
                     new Pageable(1, 1000,
                             new Sorter("createddate", "DESC")), user.getId());
@@ -49,7 +49,7 @@ public class ProfileController extends HttpServlet {
             req.setAttribute("user", user);
             req.setAttribute("comments", comments);
             req.setAttribute("articles", articleService.findByAuthorName(null, user.getUsername()));
-            req.getRequestDispatcher(location).forward(req, resp);
         }
+        req.getRequestDispatcher(location).forward(req, resp);
     }
 }
