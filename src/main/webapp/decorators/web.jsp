@@ -53,6 +53,37 @@
 <script src="/template/web/scripts/toast/jquery.toast.min.js"></script>
 <script src="/template/web/js/demo.js"></script>
 <script src="/template/web/js/e-magz.js"></script>
-
+<%--scroll to top--%>
+<script>
+    $(document).ready(() => {
+        var $scrollToTop = $('<button id="scrollToTop"><i class="bi bi-arrow-up-circle"></i></button>');
+        $scrollToTop.css({
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            backgroundColor: '#8e44ad',
+            color: '#fff',
+            padding: '10px 15px',
+            borderRadius: '4px',
+            border: 'none',
+            outline: 'none',
+            cursor: 'pointer',
+        });
+        $('body').append($scrollToTop);
+        $(window).scroll(function () {
+            var scrollTop = $(this).scrollTop();
+            if (scrollTop > 200) {
+                $scrollToTop.fadeIn();
+            } else {
+                $scrollToTop.fadeOut();
+            }
+        });
+        $scrollToTop.click(function () {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
+        });
+    });
+</script>
 </body>
 </html>
