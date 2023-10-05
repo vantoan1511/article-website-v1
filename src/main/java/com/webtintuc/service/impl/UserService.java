@@ -43,16 +43,12 @@ public class UserService implements IUserService {
 
     @Override
     public User findByUsername(String username) {
-        user = userDao.findByUsername(username);
-        user.setPassword("");
-        return user;
+        return userDao.findByUsername(username);
     }
 
     @Override
     public User findByEmail(String email) {
-        user = userDao.findByEmail(email);
-        user.setPassword("");
-        return user;
+        return userDao.findByEmail(email);
     }
 
     @Override
