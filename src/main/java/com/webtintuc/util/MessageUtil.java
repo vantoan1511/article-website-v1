@@ -22,6 +22,8 @@ public class MessageUtil {
                 msgContent = "Phiên đăng nhập đã hết hạn!";
             } else if (msg.equals("login_required")) {
                 msgContent = "Cần đăng nhập trước!";
+            } else if (msg.equals("profile_updated")) {
+                msgContent = "Cập nhật thành công. Đăng nhập lại để áp dụng thay đổi!";
             }
             req.setAttribute("type", type);
             req.setAttribute("msg", msgContent);
