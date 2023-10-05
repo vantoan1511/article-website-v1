@@ -40,6 +40,7 @@ public class SettingController extends HttpServlet {
         User oldUser = userService.findById(user.getId());
         user.setUsername(oldUser.getUsername());
         user.setToken(oldUser.getToken());
+        user.setRoleId(oldUser.getRoleId());
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             user.setPassword(oldUser.getPassword());
         } else {
