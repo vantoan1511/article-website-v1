@@ -57,7 +57,7 @@ public class UserController extends HttpServlet {
                 model.getUser().setPassword("");
             }
             model.setRoles(roleService.findAll(null));
-            location = "/views/admin/user/edit.jsp";
+            location = "/views/admin/user/profile.jsp";
         }
         req.setAttribute("model", model);
         req.getRequestDispatcher(location).forward(req, resp);
