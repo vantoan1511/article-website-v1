@@ -23,7 +23,7 @@ public class MessageUtil {
             } else if (msg.equals("login_required")) {
                 msgContent = "Cần đăng nhập trước!";
             } else if (msg.equals("profile_updated")) {
-                msgContent = "Cập nhật thành công. Đăng nhập lại để áp dụng thay đổi!";
+                msgContent = "Cập nhật thành công!";
             }
             req.setAttribute("type", type);
             req.setAttribute("msg", msgContent);
