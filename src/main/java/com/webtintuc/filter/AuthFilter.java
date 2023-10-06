@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/login", "/register", "/logout", "/settings"})
+@WebFilter(urlPatterns = {"/login", "/register", "/logout", "/settings", "/admin/*"})
 public class AuthFilter implements Filter {
 
     @Inject
@@ -26,7 +26,7 @@ public class AuthFilter implements Filter {
         if (authService.isLoggedIn(sessionId) &&
                 (uri.contains("login") || uri.contains("register"))) {
             resp.sendRedirect("/home");
-        } else if (uri.contains("settings") && !authService.isLoggedIn(sessionId)) {
+        } else if ((uri.contains("settings") || uri.contains("admin")) && !authService.isLoggedIn(sessionId)) {
             resp.sendRedirect("/login?type=danger&msg=login_required&next=" + next);
         } else {
             chain.doFilter(request, response);
