@@ -38,9 +38,9 @@ public class AuthController extends HttpServlet {
         } else {
             if (uri.contains("login")) {
                 req.setAttribute("next", next);
-                location = "/views/login.jsp";
+                location = "/views/web/login.jsp";
             } else if (uri.contains("register")) {
-                location = "/views/register.jsp";
+                location = "/views/web/register.jsp";
             }
             MessageUtil.showMessage(req);
             req.getRequestDispatcher(location).forward(req, resp);
