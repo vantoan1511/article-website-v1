@@ -107,7 +107,7 @@
                             <td>${user.role.name}</td>
                             <td class="project-actions text-right">
                                 <a target="_blank" class="btn btn-info btn-sm"
-                                   href="/profile?username=${user.username}">
+                                   href="/profile/${user.username}">
                                     <i class="fas fa-folder"></i> Xem
                                 </a>
                                 <a class="btn btn-success btn-sm"
