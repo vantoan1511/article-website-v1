@@ -28,9 +28,10 @@ public class SettingController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String location = "";
-        User user = authService.getLoggedInUser(req.getSession().getId());
-        location = "/views/web/settings.jsp";
+        User user = userService.findById(authService.getLoggedInUser(req.getSession().getId()).getId());
         MessageUtil.showMessage(req);
+        user.setPassword("");
+        location = "/views/web/settings.jsp";
         req.setAttribute("user", user);
         req.getRequestDispatcher(location).forward(req, resp);
     }
