@@ -7,7 +7,7 @@
     <a href="/admin/home" class="brand-link"> <img
             src="/template/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Trang Quản Trị </span>
     </a>
 
     <!-- Sidebar -->
@@ -15,11 +15,11 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="https://avatars.githubusercontent.com/u/121622596?v=4"
-                     class="img-circle elevation-2" alt="User Image">
+                <img src="${session.user.avatar}"
+                     class="img-circle elevation-2" alt="user-avatar">
             </div>
             <div class="info">
-                <a href="/profile/${session.user.username}" class="d-block">${session.user.fullname}</a>
+                <a href="/admin/users?tab=edit&id=${session.user.id}" class="d-block">${session.user.fullname}</a>
             </div>
         </div>
 

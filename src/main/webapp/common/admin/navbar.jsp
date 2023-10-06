@@ -38,7 +38,6 @@
 
                     <p>
                         ${session.user.fullname} - ${session.user.role.name}
-                        <small>Member since Nov. 2012</small>
                     </p>
                 </li>
                 <!-- Menu Body -->
@@ -47,7 +46,7 @@
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="/profile/${session.user.username}" class="btn btn-default btn-flat">Profile</a>
+                    <a href="/admin/users?tab=edit&id=${session.user.id}" class="btn btn-default btn-flat">Profile</a>
                     <a href="/logout" class="btn btn-default btn-flat float-right">Đăng xuất</a>
                 </li>
             </ul>
