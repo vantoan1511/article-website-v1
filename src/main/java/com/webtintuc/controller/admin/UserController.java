@@ -1,6 +1,8 @@
 package com.webtintuc.controller.admin;
 
 import com.webtintuc.model.Model;
+import com.webtintuc.service.IArticleService;
+import com.webtintuc.service.ICommentService;
 import com.webtintuc.service.IRoleService;
 import com.webtintuc.service.IUserService;
 import com.webtintuc.sqlbuilder.Pageable;
@@ -27,6 +29,11 @@ public class UserController extends HttpServlet {
 
     @Inject
     private IRoleService roleService;
+
+    @Inject
+    private IArticleService articleService;
+    @Inject
+    private ICommentService commentService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,6 +65,11 @@ public class UserController extends HttpServlet {
             }
             model.setRoles(roleService.findAll(null));
             location = "/views/admin/user/profile.jsp";
+
+            req.setAttribute("totalComments",
+                    commentService.findByUserId(null, model.getUser().getId()).size());
+            req.setAttribute("totalArticles",
+                    articleService.findByAuthorName(null, model.getUser().getUsername()).size());
         }
         req.setAttribute("model", model);
         req.getRequestDispatcher(location).forward(req, resp);
