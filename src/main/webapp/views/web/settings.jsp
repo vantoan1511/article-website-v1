@@ -46,9 +46,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input id="avatar" type="text" name="avatar" class="form-control" required disabled
+                                <input id="avatar" type="text" name="avatar" class="form-control" disabled
                                        placeholder="Dán đường dẫn vào đây" value="${user.avatar}">
                             </div>
+                            <%--hoặc
+                            <div class="form-group">
+                                <input id="file" type="file" name="file" class="form-control" disabled
+                                       placeholder="Chọn file tải lên">
+                            </div>--%>
                         </div>
                     </div>
                     <div class="row">
@@ -118,8 +123,8 @@
             $('#email').prop('disabled', false);
             $('#avatar').prop('disabled', false);
             $('#password').prop('disabled', false);
+            $('#file').prop('disabled', false);
             $('#submit-btn').prop('disabled', false);
-
         });
     });
 </script>
