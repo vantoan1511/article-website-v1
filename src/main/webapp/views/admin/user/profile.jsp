@@ -46,14 +46,12 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Bài viết</b> <a class="float-right">1,322</a>
+                                    <b>Bài viết</b> <a class="float-right">${totalArticles}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Bình luận</b> <a class="float-right">543</a>
+                                    <b>Bình luận</b> <a class="float-right">${totalComments}</a>
                                 </li>
                             </ul>
-
-                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                         </div>
                         <!-- /.card-body -->
                     </div>
