@@ -139,9 +139,13 @@
 </div>
 <script>
     $(document).ready(() => {
+        var id = $('#id').val();
+        if (id === '') {
+            $('#username').prop('disabled', false);
+        }
+        //
         var url = '/v1/api/admin/user';
         var data = {};
-        var id = $('#id').val();
         $('#submitBtn').click((e) => {
             e.preventDefault();
             var formData = $('#form').serializeArray();

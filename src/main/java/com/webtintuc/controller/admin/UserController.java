@@ -62,14 +62,14 @@ public class UserController extends HttpServlet {
             if (id != null) {
                 model.setUser(userService.findById(Long.valueOf(id)));
                 model.getUser().setPassword("");
+
+                req.setAttribute("totalComments",
+                        commentService.findByUserId(null, model.getUser().getId()).size());
+                req.setAttribute("totalArticles",
+                        articleService.findByAuthorName(null, model.getUser().getUsername()).size());
             }
             model.setRoles(roleService.findAll(null));
             location = "/views/admin/user/profile.jsp";
-
-            req.setAttribute("totalComments",
-                    commentService.findByUserId(null, model.getUser().getId()).size());
-            req.setAttribute("totalArticles",
-                    articleService.findByAuthorName(null, model.getUser().getUsername()).size());
         }
         req.setAttribute("model", model);
         req.getRequestDispatcher(location).forward(req, resp);
