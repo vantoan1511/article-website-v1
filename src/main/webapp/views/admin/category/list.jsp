@@ -210,7 +210,7 @@
                         allowOutsideClick: false
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            location.reload();
+                            window.location.href = '/admin/category';
                         }
                     });
                 },
