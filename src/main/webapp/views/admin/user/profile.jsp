@@ -35,23 +35,32 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="${model.user.avatar}"
-                                     alt="user-avatar">
+                                <c:if test="${not empty model.user.id}">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="${model.user.avatar}"
+                                         alt="user-avatar">
+                                </c:if>
+                                <c:if test="${empty model.user.id}">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="<c:url value="/template/admin/dist/img/user2-160x160.jpg"/>"
+                                         alt="user-avatar">
+                                </c:if>
                             </div>
 
                             <h3 class="profile-username text-center">${model.user.fullname}</h3>
 
                             <p class="text-muted text-center">${model.user.role.name}</p>
 
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Bài viết</b> <a class="float-right">${totalArticles}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Bình luận</b> <a class="float-right">${totalComments}</a>
-                                </li>
-                            </ul>
+                            <c:if test="${not empty model.user.id}">
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Bài viết</b> <a class="float-right">${totalArticles}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Bình luận</b> <a class="float-right">${totalComments}</a>
+                                    </li>
+                                </ul>
+                            </c:if>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -115,7 +124,10 @@
                                         <div class="form-group">
                                             <label for="password">Password</label>
                                             <input type="password" id="password" name="password" class="form-control"
-                                                   value="${model.user.password}" placeholder="Bỏ trống để giữ nguyên">
+                                                   value="${model.user.password}"
+                                            <c:if test="${not empty model.user.id}">
+                                                   placeholder="Bỏ trống để giữ nguyên"</c:if>
+                                            >
                                         </div>
                                     </div>
                                 </div>
