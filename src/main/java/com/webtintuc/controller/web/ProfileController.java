@@ -35,6 +35,7 @@ public class ProfileController extends HttpServlet {
         String username = URIUtils.getPathParam(req);
         String location = "";
         User user = userService.findByUsername(username);
+        user.setPassword("");
         if (username.isEmpty() || username.equals("profile") || user == null) {
             location = "/views/web/404.jsp";
         } else {
