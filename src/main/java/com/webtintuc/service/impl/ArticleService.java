@@ -87,12 +87,12 @@ public class ArticleService implements IArticleService {
 
     @Override
     public Article update(Article article) {
-        Article oldArticle = articleDao.findById(article.getId());
+        /*Article oldArticle = articleDao.findById(article.getId());
         if (article.getViews() == null)
             article.setViews(oldArticle.getViews());
         article.setCreatedDate(oldArticle.getCreatedDate());
         article.setCreatedBy(oldArticle.getCreatedBy());
-        article.setModifiedDate(Timestamp.from(Instant.now()));
+        article.setModifiedDate(Timestamp.from(Instant.now()));*/
         articleDao.update(article);
         return articleDao.findById(article.getId());
     }

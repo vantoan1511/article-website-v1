@@ -24,7 +24,7 @@ public class AuthorizationFilter implements Filter {
         String sessionId = req.getSession().getId();
         User user = authService.getLoggedInUser(sessionId);
         if (user == null || !user.getRoleId().equals(SystemConstant.ADMIN_ROLE)) {
-            resp.sendError(405);
+            resp.sendRedirect("/home");
         } else {
             chain.doFilter(request, response);
         }

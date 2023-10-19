@@ -80,7 +80,12 @@ public class ArticleAPI extends HttpServlet {
         ApiUtils.init(req, resp);
         User author = authService.getLoggedInUser(req.getSession().getId());
         Article article = ApiUtils.parseRequestBody(req, Article.class);
+        Article oldArticle = articleService.findById(article.getId());
+        article.setCreatedBy(oldArticle.getCreatedBy());
+        article.setCreatedDate(oldArticle.getCreatedDate());
+        article.setModifiedDate(Timestamp.from(Instant.now()));
         article.setModifiedBy(author.getUsername());
+        article.setViews(articleService.findById(article.getId()).getViews());
         ApiUtils.returnJsonData(resp, articleService.update(article));
     }
 
