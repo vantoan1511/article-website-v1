@@ -23,9 +23,11 @@
                                         </div>
                                     </div>
                                     <div class="featured-author-center">
-                                        <figure class="featured-author-picture">
-                                            <img src="${user.avatar}" alt="Avatar">
-                                        </figure>
+                                        <a href="#">
+                                            <figure class="featured-author-picture">
+                                                <img src="${user.avatar}" alt="Avatar">
+                                            </figure>
+                                        </a>
                                         <div class="featured-author-info">
                                             <h2 class="name">${user.fullname}</h2>
                                             <div class="desc">@${user.username}</div>
