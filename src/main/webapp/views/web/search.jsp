@@ -106,7 +106,7 @@
                                 <div class="details">
                                     <div class="detail">
                                         <div class="category">
-                                            <a href="#">${article.category.name}</a>
+                                            <a href="/categories/${article.category.code}">${article.category.name}</a>
                                         </div>
                                         <time>
                                             <fmt:formatDate value="${article.createdDate}" pattern="HH:mm dd/MM/yyyy"/>
