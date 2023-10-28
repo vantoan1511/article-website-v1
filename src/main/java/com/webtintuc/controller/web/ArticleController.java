@@ -42,28 +42,31 @@ public class ArticleController extends HttpServlet {
             resp.sendError(404);
         } else {
             Article article = articleService.findById(Long.valueOf(id));
-            List<Comment> comments = commentService.findByArticleId(
-                    new Pageable(1, 1000,
-                            new Sorter("createddate", "DESC")), Long.valueOf(id));
+            if (article == null) {
+                resp.sendError(404);
+            } else {
+                List<Comment> comments = commentService.findByArticleId(
+                        new Pageable(1, 1000,
+                                new Sorter("createddate", "DESC")), Long.valueOf(id));
 
-            article.setViews(article.getViews() + 1);
-            articleService.update(article);
-            article.setCategory(categoryService.findById(article.getCategoryId()));
+                article.setViews(article.getViews() + 1);
+                articleService.update(article);
+                article.setCategory(categoryService.findById(article.getCategoryId()));
 
-            comments.forEach(
-                    item -> {
-                        item.setUser(userService.findById(item.getUserId()));
-                        item.setParent(commentService.findById(item.getParentId()));
-                    }
-            );
+                comments.forEach(
+                        item -> {
+                            item.setUser(userService.findById(item.getUserId()));
+                            item.setParent(commentService.findById(item.getParentId()));
+                        }
+                );
 
-            model.setCategories(categoryService.findAll());
+                model.setCategories(categoryService.findAll());
 
-            req.setAttribute("article", article);
-            req.setAttribute("comments", comments);
-            req.setAttribute("model", model);
-            req.getRequestDispatcher("/views/web/article.jsp").forward(req, resp);
-
+                req.setAttribute("article", article);
+                req.setAttribute("comments", comments);
+                req.setAttribute("model", model);
+                req.getRequestDispatcher("/views/web/article.jsp").forward(req, resp);
+            }
             //testing section
         }
     }
