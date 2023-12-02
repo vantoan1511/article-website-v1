@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -36,8 +35,7 @@
             <div class="card-header">
                 <h3 class="card-title">Danh sách bài viết</h3>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool"
-                            data-card-widget="collapse" title="Collapse">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
                 </div>
@@ -45,11 +43,11 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-3">
-                        <a href="/admin/article?tab=edit" class="btn btn-app"
-                           title="Thêm bài viết"> <i class="fas fa-plus"></i> Thêm mới
+                        <a href="/admin/article?tab=edit" class="btn btn-app" title="Thêm bài viết"> <i
+                                class="fas fa-plus"></i> Thêm mới
                         </a>
-                        <button disabled id="delete-btn" type="button"
-                                class="btn btn-app bg-danger" title="Xóa">
+                        <button disabled id="delete-btn" type="button" class="btn btn-app bg-danger"
+                                title="Xóa">
                             <i class="fas fa-trash"></i> Xóa
                         </button>
                     </div>
@@ -83,7 +81,8 @@
                     <tr>
                         <th>
                             <div class="form-check">
-                                <input class="form-check-input check-all" type="checkbox" id="select-all">
+                                <input class="form-check-input check-all" type="checkbox"
+                                       id="select-all">
                             </div>
                         </th>
                         <th>STT</th>
@@ -101,22 +100,26 @@
                         <tr>
                             <td>
                                 <div class="form-check">
-                                    <input class="form-check-input check-box" type="checkbox" id="${article.id}">
+                                    <input class="form-check-input check-box" type="checkbox"
+                                           id="${article.id}">
                                 </div>
                             </td>
                             <td>${loop.index+1}</td>
                             <td>${article.title}</td>
                             <td>${article.category.name}</td>
                             <td class="created-date">
-                                <fmt:formatDate value="${article.createdDate}" pattern="HH:mm dd/MM/yyyy"/>
+                                <fmt:formatDate value="${article.createdDate}"
+                                                pattern="HH:mm dd/MM/yyyy"/>
                             </td>
                             <td>
-                                <fmt:formatDate value="${article.modifiedDate}" pattern="HH:mm dd/MM/yyyy"/>
+                                <fmt:formatDate value="${article.modifiedDate}"
+                                                pattern="HH:mm dd/MM/yyyy"/>
                             </td>
                             <td>${article.createdBy}</td>
                             <td>${article.views}</td>
                             <td class="project-actions text-right">
-                                <a target="_blank" class="btn btn-info btn-sm" href="/article?id=${article.id}">
+                                <a target="_blank" class="btn btn-info btn-sm"
+                                   href="/article?id=${article.id}">
                                     <i class="fas fa-folder"></i> Xem
                                 </a>
                                 <a class="btn btn-success btn-sm"
@@ -229,8 +232,8 @@
 
         function articlePaginate() {
             const url = '/admin/article?tab=list';
-            var startPage = ${model.page};
-            var totalPages = ${model.totalPages};
+            var startPage = ${ model.page };
+            var totalPages = ${ model.totalPages };
             var limit = $('#limit-select');
             var sortBy = '${model.sortBy}';
             var sortOrder = '${model.sortOrder}';
@@ -282,4 +285,5 @@
     });
 </script>
 </body>
+
 </html>

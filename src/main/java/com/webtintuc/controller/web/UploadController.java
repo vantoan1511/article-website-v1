@@ -23,8 +23,8 @@ public class UploadController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uploadPath = getServletContext().getRealPath("/static/images");
-        File uploadDir = new File(uploadPath);
+        String des = getServletContext().getRealPath("/static/images");
+        File uploadDir = new File(des);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
@@ -41,7 +41,7 @@ public class UploadController extends HttpServlet {
 
         InputStream fileContent = filePart.getInputStream();
 
-        File file = new File(uploadPath + File.separator + newFileName);
+        File file = new File(des + File.separator + newFileName);
         Files.copy(fileContent, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
         resp.getWriter().println("Tai len thanh cong!");
